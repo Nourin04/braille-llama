@@ -1,0 +1,9 @@
+streamlit
+torch
+torchvision
+numpy
+Pillow
+opencv-python
+requests
+python-dotenv
+spellchecker
