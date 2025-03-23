@@ -6,4 +6,4 @@ Pillow
 opencv-python
 requests
 python-dotenv
-spellchecker
+pyspellchecker
