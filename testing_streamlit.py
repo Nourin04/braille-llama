@@ -22,7 +22,7 @@ if not GROQ_API_KEY:
     st.stop()
 
 # ✅ Download model from Google Drive if not already present
-model_path = "braille_recognition_model_final.pth"
+model_path = "braille_model.pth"
 gdrive_url = "https://drive.google.com/uc?id=1rUOT527Our7VFWrzY78QlwCiBaCnKuI_"
 
 if not os.path.exists(model_path):
