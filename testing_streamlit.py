@@ -6,6 +6,7 @@ import torchvision.transforms as transforms
 import requests
 import json
 import os
+import gdown  # ✅ Import gdown to download from Google Drive
 from dotenv import load_dotenv
 from spellchecker import SpellChecker
 from PIL import Image
@@ -19,6 +20,14 @@ GROQ_API_KEY = st.secrets["GROQ_API_KEY"]
 if not GROQ_API_KEY:
     st.error("❌ ERROR: Groq API key not found! Ensure you have set it in the .env file.")
     st.stop()
+
+# ✅ Download model from Google Drive if not already present
+model_path = "braille_recognition_model_final.pth"
+gdrive_url = "https://drive.google.com/uc?id=1rUOT527Our7VFWrzY78QlwCiBaCnKuI_"
+
+if not os.path.exists(model_path):
+    st.info("📥 Downloading model file from Google Drive...")
+    gdown.download(gdrive_url, model_path, quiet=False)
 
 # ✅ Define Character Recognition Model
 class CharacterRecognitionModel(nn.Module):
@@ -69,7 +78,6 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model = CharacterRecognitionModel(num_classes=26).to(device)
 
 # Load trained model weights
-model_path = "C:/Users/USER/Desktop/braille_llama/braille_recognition_model_final.pth"
 model.load_state_dict(torch.load(model_path, map_location=device))
 model.eval()
 
@@ -172,4 +180,4 @@ if uploaded_file:
         else:
             st.error("⚠️ Preprocessing failed. Check the image!")
 
-st.info("Upload a Braille image and specify the number of characters for recognition.")  
+st.info("Upload a Braille image and specify the number of characters for recognition.")
